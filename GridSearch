@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+public class GridSearch {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int a0 = 0; a0 < t; a0++){
+            int R = in.nextInt();
+            int C = in.nextInt();
+            String G[] = new String[R];
+            for(int G_i=0; G_i < R; G_i++){
+                G[G_i] = in.next();
+            }
+            int r = in.nextInt();
+            int c = in.nextInt();
+            String P[] = new String[r];
+            for(int P_i=0; P_i < r; P_i++){
+                P[P_i] = in.next();
+            }
+            boolean status=false;
+        for(int i=0;i<R-r;i++){
+            for(int j=0;j<C-c;j++){
+            	//System.out.println("Checking string:"+G[i].substring(j, j+c));
+                if(G[i].substring(j,j+c).equals(P[0])){
+                   status= checkPattern(G,i,j,P,r,c);
+                    if(status == true){
+                        System.out.println("YES");
+                        break;
+                    }
+                    else{
+                        status=false;
+                    }
+                }
+            }
+        }
+        if(status == false){
+        System.out.println("NO");
+        }
+        }
+        
+    }
+        public static boolean checkPattern(String[] g,int row,int col,String[] p,int sr,int sc){
+            int k=0;
+            for(int m=row;m<row+sr;m++){
+               if(g[m].substring(col,col+sc).equals(p[k])){
+            	   k++;
+               }
+               else{
+            	   return false;
+               }
+            }
+            return true;
+        }
+}
