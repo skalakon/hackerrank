@@ -1,0 +1,71 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class MatrixRotation {
+public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int M = sc.nextInt();
+		int N=sc.nextInt();
+		int R = sc.nextInt();
+		int[][] arr=new int[M][N];
+		for(int row=0;row<M;row++){
+			for(int col=0;col<N;col++){
+				arr[row][col]=sc.nextInt();
+				//System.out.print(arr[row][col]+" ");
+			}
+			//System.out.println("");
+		}
+		int min = Math.min(M, N);	
+		int newR=M,newC=N;
+		int newRotate=0;
+	
+		for(int r=0;r<min/2;r++){
+			int shifts=2*(newR+newC-2);
+			newRotate = R%shifts;
+			while(newRotate>0){
+				rotate(arr,newR,newC,r);
+				newRotate--;
+			}			
+			newR-=2;
+			newC-=2;
+		//System.out.println("After "+R+"th rotation");
+		}
+    for(int row=0;row<M;row++){
+			for(int col=0;col<N;col++){
+				System.out.print(arr[row][col]+" ");
+			}
+			System.out.println("");
+		}
+	}
+
+	private static void rotate(int[][] arr, int start, int end,int c) {
+		// TODO Auto-generated method stub
+		int temp=arr[c][c];
+		int x=c,y=c;
+		int rr=x,cc=y;
+		do{
+			rr=x;
+			cc=y;
+			if(x==c && y <end+c-1){
+			y++;
+			}
+			else if(x<start+c-1 && y == end+c-1){
+			x++;
+			}
+			else if(x==start+c-1 && y > c){
+			y--;
+			}
+			else{
+			x--;
+			}
+			arr[rr][cc]=arr[x][y];
+			//System.out.println("Inside loop value is:"+arr[rr][cc]+" indices:"+rr+" "+cc+" "+x+" "+y);
+		}
+		while(!(x==c && y==c));
+		arr[rr][cc]=temp;
+	}
+
+}
